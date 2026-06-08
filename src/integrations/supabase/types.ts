@@ -14,16 +14,352 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      categorias: {
+        Row: {
+          created_at: string
+          descricao: string | null
+          id: string
+          nome: string
+        }
+        Insert: {
+          created_at?: string
+          descricao?: string | null
+          id?: string
+          nome: string
+        }
+        Update: {
+          created_at?: string
+          descricao?: string | null
+          id?: string
+          nome?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          matricula: string | null
+          nome: string
+          setor: string | null
+          unidade_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id: string
+          matricula?: string | null
+          nome: string
+          setor?: string | null
+          unidade_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          matricula?: string | null
+          nome?: string
+          setor?: string | null
+          unidade_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "profiles_unidade_id_fkey"
+            columns: ["unidade_id"]
+            isOneToOne: false
+            referencedRelation: "unidades"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      subcategorias: {
+        Row: {
+          categoria_id: string
+          created_at: string
+          id: string
+          nivel_padrao: Database["public"]["Enums"]["ticket_level"]
+          nome: string
+          prioridade_padrao: Database["public"]["Enums"]["ticket_priority"]
+          sla_horas: number
+        }
+        Insert: {
+          categoria_id: string
+          created_at?: string
+          id?: string
+          nivel_padrao?: Database["public"]["Enums"]["ticket_level"]
+          nome: string
+          prioridade_padrao?: Database["public"]["Enums"]["ticket_priority"]
+          sla_horas?: number
+        }
+        Update: {
+          categoria_id?: string
+          created_at?: string
+          id?: string
+          nivel_padrao?: Database["public"]["Enums"]["ticket_level"]
+          nome?: string
+          prioridade_padrao?: Database["public"]["Enums"]["ticket_priority"]
+          sla_horas?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "subcategorias_categoria_id_fkey"
+            columns: ["categoria_id"]
+            isOneToOne: false
+            referencedRelation: "categorias"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ticket_avaliacoes: {
+        Row: {
+          comentario: string | null
+          created_at: string
+          id: string
+          nota_comunicacao: number
+          nota_cordialidade: number
+          nota_qualidade: number
+          nota_rapidez: number
+          nota_solucao: number
+          ticket_id: string
+          user_id: string
+        }
+        Insert: {
+          comentario?: string | null
+          created_at?: string
+          id?: string
+          nota_comunicacao: number
+          nota_cordialidade: number
+          nota_qualidade: number
+          nota_rapidez: number
+          nota_solucao: number
+          ticket_id: string
+          user_id: string
+        }
+        Update: {
+          comentario?: string | null
+          created_at?: string
+          id?: string
+          nota_comunicacao?: number
+          nota_cordialidade?: number
+          nota_qualidade?: number
+          nota_rapidez?: number
+          nota_solucao?: number
+          ticket_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ticket_avaliacoes_ticket_id_fkey"
+            columns: ["ticket_id"]
+            isOneToOne: true
+            referencedRelation: "tickets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ticket_historico: {
+        Row: {
+          acao: string
+          created_at: string
+          descricao: string | null
+          id: string
+          metadata: Json | null
+          ticket_id: string
+          user_id: string | null
+        }
+        Insert: {
+          acao: string
+          created_at?: string
+          descricao?: string | null
+          id?: string
+          metadata?: Json | null
+          ticket_id: string
+          user_id?: string | null
+        }
+        Update: {
+          acao?: string
+          created_at?: string
+          descricao?: string | null
+          id?: string
+          metadata?: Json | null
+          ticket_id?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ticket_historico_ticket_id_fkey"
+            columns: ["ticket_id"]
+            isOneToOne: false
+            referencedRelation: "tickets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tickets: {
+        Row: {
+          atribuido_id: string | null
+          categoria_id: string | null
+          closed_at: string | null
+          created_at: string
+          descricao: string
+          due_at: string | null
+          id: string
+          nivel: Database["public"]["Enums"]["ticket_level"]
+          numero: string | null
+          prioridade: Database["public"]["Enums"]["ticket_priority"]
+          resolved_at: string | null
+          sla_horas: number
+          solicitante_id: string
+          status: Database["public"]["Enums"]["ticket_status"]
+          subcategoria_id: string | null
+          titulo: string
+          unidade_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          atribuido_id?: string | null
+          categoria_id?: string | null
+          closed_at?: string | null
+          created_at?: string
+          descricao: string
+          due_at?: string | null
+          id?: string
+          nivel?: Database["public"]["Enums"]["ticket_level"]
+          numero?: string | null
+          prioridade?: Database["public"]["Enums"]["ticket_priority"]
+          resolved_at?: string | null
+          sla_horas?: number
+          solicitante_id: string
+          status?: Database["public"]["Enums"]["ticket_status"]
+          subcategoria_id?: string | null
+          titulo: string
+          unidade_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          atribuido_id?: string | null
+          categoria_id?: string | null
+          closed_at?: string | null
+          created_at?: string
+          descricao?: string
+          due_at?: string | null
+          id?: string
+          nivel?: Database["public"]["Enums"]["ticket_level"]
+          numero?: string | null
+          prioridade?: Database["public"]["Enums"]["ticket_priority"]
+          resolved_at?: string | null
+          sla_horas?: number
+          solicitante_id?: string
+          status?: Database["public"]["Enums"]["ticket_status"]
+          subcategoria_id?: string | null
+          titulo?: string
+          unidade_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tickets_categoria_id_fkey"
+            columns: ["categoria_id"]
+            isOneToOne: false
+            referencedRelation: "categorias"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tickets_subcategoria_id_fkey"
+            columns: ["subcategoria_id"]
+            isOneToOne: false
+            referencedRelation: "subcategorias"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tickets_unidade_id_fkey"
+            columns: ["unidade_id"]
+            isOneToOne: false
+            referencedRelation: "unidades"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      unidades: {
+        Row: {
+          cidade: string | null
+          created_at: string
+          id: string
+          nome: string
+          sigla: string
+        }
+        Insert: {
+          cidade?: string | null
+          created_at?: string
+          id?: string
+          nome: string
+          sigla: string
+        }
+        Update: {
+          cidade?: string | null
+          created_at?: string
+          id?: string
+          nome?: string
+          sigla?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      is_staff: { Args: { _user_id: string }; Returns: boolean }
     }
     Enums: {
-      [_ in never]: never
+      app_role:
+        | "admin"
+        | "gestor"
+        | "tecnico_n1"
+        | "tecnico_n2"
+        | "tecnico_n3"
+        | "solicitante"
+      ticket_level: "N1" | "N2" | "N3"
+      ticket_priority: "baixa" | "media" | "alta" | "critica"
+      ticket_status:
+        | "aberto"
+        | "em_andamento"
+        | "aguardando_validacao"
+        | "resolvido"
+        | "reaberto"
+        | "fechado"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +486,25 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: [
+        "admin",
+        "gestor",
+        "tecnico_n1",
+        "tecnico_n2",
+        "tecnico_n3",
+        "solicitante",
+      ],
+      ticket_level: ["N1", "N2", "N3"],
+      ticket_priority: ["baixa", "media", "alta", "critica"],
+      ticket_status: [
+        "aberto",
+        "em_andamento",
+        "aguardando_validacao",
+        "resolvido",
+        "reaberto",
+        "fechado",
+      ],
+    },
   },
 } as const
