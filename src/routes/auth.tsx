@@ -151,7 +151,7 @@ function SignupForm({ onSuccess }: { onSuccess: () => void }) {
         <div><Label>Matrícula/CPF</Label><Input value={matricula} onChange={(e) => setMatricula(e.target.value)} /></div>
         <div><Label>Setor</Label><Input value={setor} onChange={(e) => setSetor(e.target.value)} /></div>
       </div>
-      <div><Label>Senha</Label><Input type="password" required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)} /></div>
+      <div><Label>Senha</Label><PasswordInput value={password} onChange={setPassword} /></div>
       <Button type="submit" disabled={loading} className="w-full bg-[#f58220] hover:bg-[#d96f10]">
         {loading ? "Criando..." : "Criar conta"}
       </Button>
