@@ -67,6 +67,29 @@ function AuthPage() {
   );
 }
 
+function PasswordInput({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+  const [show, setShow] = useState(false);
+  return (
+    <div className="relative">
+      <Input
+        type={show ? "text" : "password"}
+        required
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="pr-10"
+      />
+      <button
+        type="button"
+        onClick={() => setShow((s) => !s)}
+        className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+        tabIndex={-1}
+      >
+        {show ? <EyeOff size={18} /> : <Eye size={18} />}
+      </button>
+    </div>
+  );
+}
+
 function LoginForm({ onSuccess }: { onSuccess: () => void }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -86,7 +109,7 @@ function LoginForm({ onSuccess }: { onSuccess: () => void }) {
       }}
     >
       <div><Label>E-mail institucional</Label><Input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} /></div>
-      <div><Label>Senha</Label><Input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} /></div>
+      <div><Label>Senha</Label><PasswordInput value={password} onChange={setPassword} /></div>
       <Button type="submit" disabled={loading} className="w-full bg-[#003a70] hover:bg-[#002a55]">
         {loading ? "Entrando..." : "Entrar"}
       </Button>
