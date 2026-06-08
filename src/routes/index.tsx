@@ -16,12 +16,7 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-[#f5f7fa] px-4">
-      <img
-        src={senacLogo}
-        alt="Logo SENAC Service Desk"
-        width={400}
-        className="mb-8"
-      />
+      <img src={senacLogo} alt="Logo SENAC Service Desk" width={400} className="mb-8" />
       <h1 className="text-3xl font-bold text-[#003a70]">SmartDesk SENAC-MA</h1>
       <p className="mt-2 text-center text-[#f58220] font-medium">
         Service Desk Corporativo — N1 · N2 · N3
@@ -30,6 +25,12 @@ function Index() {
         Centralize o atendimento de TI e infraestrutura com classificação automática,
         filas inteligentes e monitoramento de SLA em tempo real.
       </p>
+      <a
+        href="/auth"
+        className="mt-6 inline-flex items-center justify-center rounded-md bg-[#003a70] px-6 py-2.5 text-sm font-semibold text-white hover:bg-[#002a55] transition"
+      >
+        Entrar no sistema
+      </a>
     </div>
   );
 }
