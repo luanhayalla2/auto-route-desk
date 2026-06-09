@@ -8,7 +8,19 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import senacLogo from "@/assets/senac-logo.png";
-import { Eye, EyeOff, ShieldCheck, Zap, BarChart3, ArrowLeft } from "lucide-react";
+import {
+  Eye,
+  EyeOff,
+  ShieldCheck,
+  Zap,
+  BarChart3,
+  ArrowLeft,
+  Headphones,
+  Clock,
+  Users,
+  CheckCircle2,
+  Sparkles,
+} from "lucide-react";
 
 export const Route = createFileRoute("/auth")({
   head: () => ({ meta: [{ title: "Entrar — SmartDesk SENAC-MA" }] }),
@@ -16,7 +28,8 @@ export const Route = createFileRoute("/auth")({
 });
 
 const SENAC_BLUE = "#003a70";
-const SENAC_BLUE_DARK = "#002a55";
+const SENAC_BLUE_DARK = "#001f3f";
+const SENAC_BLUE_LIGHT = "#0a5ca8";
 const SENAC_ORANGE = "#f58220";
 const SENAC_ORANGE_DARK = "#d96f10";
 
@@ -30,91 +43,159 @@ function AuthPage() {
   }, [navigate]);
 
   return (
-    <div className="min-h-screen grid lg:grid-cols-2 bg-slate-50">
+    <div className="min-h-screen grid lg:grid-cols-[1.1fr_1fr] bg-slate-50">
       {/* Brand side */}
       <div
-        className="relative hidden lg:flex flex-col justify-between p-12 text-white overflow-hidden"
+        className="relative hidden lg:flex flex-col justify-between p-14 text-white overflow-hidden"
         style={{
-          background: `linear-gradient(135deg, ${SENAC_BLUE} 0%, ${SENAC_BLUE_DARK} 60%, #001a35 100%)`,
+          background: `radial-gradient(circle at 20% 20%, ${SENAC_BLUE_LIGHT} 0%, transparent 45%),
+                       radial-gradient(circle at 80% 80%, ${SENAC_ORANGE} 0%, transparent 35%),
+                       linear-gradient(135deg, ${SENAC_BLUE} 0%, ${SENAC_BLUE_DARK} 70%, #00132a 100%)`,
         }}
       >
-        {/* decorative shapes */}
+        {/* Decorative dots */}
         <div
-          className="absolute -top-32 -right-32 w-96 h-96 rounded-full opacity-20 blur-3xl"
-          style={{ background: SENAC_ORANGE }}
-        />
-        <div
-          className="absolute -bottom-40 -left-20 w-[28rem] h-[28rem] rounded-full opacity-10 blur-3xl"
-          style={{ background: "#4da3ff" }}
-        />
-        <div
-          className="absolute inset-0 opacity-[0.07]"
+          className="absolute inset-0 opacity-[0.08]"
           style={{
             backgroundImage:
               "radial-gradient(circle at 1px 1px, white 1px, transparent 0)",
-            backgroundSize: "32px 32px",
+            backgroundSize: "28px 28px",
+          }}
+        />
+        {/* Glow orbs */}
+        <div
+          className="absolute -top-40 -right-40 w-[28rem] h-[28rem] rounded-full opacity-30 blur-3xl"
+          style={{ background: SENAC_ORANGE }}
+        />
+        <div
+          className="absolute -bottom-48 -left-32 w-[32rem] h-[32rem] rounded-full opacity-20 blur-3xl"
+          style={{ background: "#4da3ff" }}
+        />
+        {/* Diagonal accent stripe */}
+        <div
+          className="absolute top-0 right-0 w-1.5 h-full"
+          style={{
+            background: `linear-gradient(180deg, transparent, ${SENAC_ORANGE} 50%, transparent)`,
           }}
         />
 
-        <div className="relative z-10 flex items-center gap-3">
-          <div className="bg-white rounded-lg p-2 shadow-lg">
-            <img src={senacLogo} alt="SENAC" className="h-8" />
+        {/* Header / brand */}
+        <div className="relative z-10 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="bg-white rounded-xl p-2.5 shadow-2xl ring-1 ring-white/20">
+              <img src={senacLogo} alt="SENAC" className="h-9" />
+            </div>
+            <div>
+              <div className="text-[10px] uppercase tracking-[0.2em] text-white/60 font-semibold">
+                SENAC Maranhão
+              </div>
+              <div className="font-bold text-lg leading-tight">SmartDesk</div>
+            </div>
           </div>
-          <div>
-            <div className="text-xs uppercase tracking-widest text-white/70">SENAC-MA</div>
-            <div className="font-semibold">SmartDesk</div>
+          <div
+            className="flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full border border-white/15 backdrop-blur-sm bg-white/5"
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            Sistema online
           </div>
         </div>
 
-        <div className="relative z-10 space-y-6 max-w-md">
-          <h2 className="text-4xl font-bold leading-tight">
-            Service Desk corporativo,{" "}
-            <span style={{ color: SENAC_ORANGE }}>simples e ágil</span>.
+        {/* Hero copy */}
+        <div className="relative z-10 space-y-8 max-w-lg">
+          <div
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold border border-white/15 backdrop-blur-sm"
+            style={{ background: "rgba(245,130,32,0.15)", color: "#ffd9b3" }}
+          >
+            <Sparkles size={13} />
+            Service Desk Corporativo · Versão 2026
+          </div>
+
+          <h2 className="text-[2.75rem] font-bold leading-[1.1] tracking-tight">
+            Atendimento de TI <br />
+            <span style={{ color: SENAC_ORANGE }}>inteligente e ágil</span> <br />
+            para todo o SENAC-MA.
           </h2>
-          <p className="text-white/80 text-lg">
-            Abra chamados, acompanhe SLAs em tempo real e gerencie o atendimento de TI de todas as unidades em um só lugar.
+
+          <p className="text-white/75 text-lg leading-relaxed">
+            Abra chamados, acompanhe SLAs em tempo real e centralize o suporte
+            das unidades em uma plataforma única e segura.
           </p>
 
-          <div className="space-y-3 pt-4">
-            <Feature icon={<Zap size={18} />} text="Abertura de chamados em poucos cliques" />
-            <Feature icon={<BarChart3 size={18} />} text="Dashboards e SLA em tempo real" />
-            <Feature icon={<ShieldCheck size={18} />} text="Acesso seguro com perfis e auditoria" />
+          {/* Feature cards */}
+          <div className="grid grid-cols-2 gap-3 pt-2">
+            <FeatureCard icon={<Zap size={16} />} title="Resposta rápida" desc="Triagem automática N1/N2/N3" />
+            <FeatureCard icon={<BarChart3 size={16} />} title="SLA visível" desc="Indicadores em tempo real" />
+            <FeatureCard icon={<ShieldCheck size={16} />} title="Acesso seguro" desc="Perfis e auditoria total" />
+            <FeatureCard icon={<Headphones size={16} />} title="Suporte 24/7" desc="Equipe técnica dedicada" />
           </div>
         </div>
 
-        <div className="relative z-10 text-xs text-white/60">
-          © {new Date().getFullYear()} SENAC Maranhão · Todos os direitos reservados
+        {/* Footer stats */}
+        <div className="relative z-10 space-y-4">
+          <div className="grid grid-cols-3 gap-4 pb-4 border-b border-white/10">
+            <Stat icon={<Users size={14} />} value="5" label="Unidades" />
+            <Stat icon={<Clock size={14} />} value="< 4h" label="SLA médio" />
+            <Stat icon={<CheckCircle2 size={14} />} value="98%" label="Satisfação" />
+          </div>
+          <div className="text-xs text-white/50">
+            © {new Date().getFullYear()} SENAC Maranhão · Todos os direitos reservados
+          </div>
         </div>
       </div>
 
       {/* Form side */}
-      <div className="flex items-center justify-center px-4 py-10 sm:py-16">
-        <div className="w-full max-w-md">
-          {/* mobile brand */}
+      <div className="flex items-center justify-center px-4 py-10 sm:py-16 relative">
+        {/* Subtle bg pattern on form side */}
+        <div
+          className="absolute inset-0 opacity-[0.4] pointer-events-none"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at 1px 1px, rgba(0,58,112,0.08) 1px, transparent 0)",
+            backgroundSize: "24px 24px",
+          }}
+        />
+
+        <div className="w-full max-w-md relative z-10">
+          {/* Mobile brand */}
           <div className="flex flex-col items-center mb-8 lg:hidden">
-            <img src={senacLogo} alt="SENAC" className="w-32 mb-3" />
+            <div className="bg-white rounded-xl p-3 shadow-lg border border-slate-200 mb-3">
+              <img src={senacLogo} alt="SENAC" className="h-10" />
+            </div>
             <h1 className="text-2xl font-bold" style={{ color: SENAC_BLUE }}>
               SmartDesk SENAC-MA
             </h1>
             <p className="text-sm text-muted-foreground">Service Desk Corporativo</p>
           </div>
 
+          {/* Desktop header */}
           <div className="hidden lg:block mb-8">
-            <h1 className="text-3xl font-bold" style={{ color: SENAC_BLUE }}>
+            <div
+              className="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-md mb-3"
+              style={{ background: "rgba(0,58,112,0.08)", color: SENAC_BLUE }}
+            >
+              <ShieldCheck size={12} /> Acesso seguro
+            </div>
+            <h1 className="text-[2rem] font-bold tracking-tight" style={{ color: SENAC_BLUE }}>
               Bem-vindo de volta
             </h1>
-            <p className="text-sm text-muted-foreground mt-1">
-              Acesse com suas credenciais institucionais
+            <p className="text-sm text-muted-foreground mt-1.5">
+              Entre com sua conta institucional para continuar
             </p>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-xl border border-slate-200/70 p-7">
+          <div className="bg-white rounded-2xl shadow-[0_20px_60px_-15px_rgba(0,58,112,0.25)] border border-slate-200/70 p-7 backdrop-blur-sm">
             <Tabs defaultValue="login">
-              <TabsList className="grid grid-cols-2 mb-5 w-full bg-slate-100">
-                <TabsTrigger value="login" className="data-[state=active]:bg-white data-[state=active]:shadow-sm">
+              <TabsList className="grid grid-cols-2 mb-6 w-full bg-slate-100/80 p-1 h-11">
+                <TabsTrigger
+                  value="login"
+                  className="data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:text-[#003a70] font-medium"
+                >
                   Entrar
                 </TabsTrigger>
-                <TabsTrigger value="signup" className="data-[state=active]:bg-white data-[state=active]:shadow-sm">
+                <TabsTrigger
+                  value="signup"
+                  className="data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:text-[#003a70] font-medium"
+                >
                   Cadastrar
                 </TabsTrigger>
               </TabsList>
@@ -128,13 +209,13 @@ function AuthPage() {
 
             <div className="my-5 flex items-center gap-3 text-xs text-muted-foreground">
               <div className="h-px bg-border flex-1" />
-              <span>ou continue com</span>
+              <span className="uppercase tracking-wider font-medium">ou continue com</span>
               <div className="h-px bg-border flex-1" />
             </div>
 
             <Button
               variant="outline"
-              className="w-full h-11 border-slate-300 hover:bg-slate-50 gap-2"
+              className="w-full h-11 border-slate-300 hover:bg-slate-50 hover:border-slate-400 gap-2.5 font-medium transition-all"
               onClick={async () => {
                 const r = await lovable.auth.signInWithOAuth("google", {
                   redirect_uri: window.location.origin + "/portal",
@@ -144,6 +225,14 @@ function AuthPage() {
             >
               <GoogleIcon /> Continuar com Google
             </Button>
+
+            <p className="text-[11px] text-center text-muted-foreground mt-5 leading-relaxed">
+              Ao continuar você concorda com os termos de uso e a{" "}
+              <span className="underline cursor-pointer hover:text-foreground">
+                política de privacidade
+              </span>{" "}
+              do SENAC-MA.
+            </p>
           </div>
 
           <p className="text-center mt-6 text-xs text-muted-foreground">
@@ -157,16 +246,31 @@ function AuthPage() {
   );
 }
 
-function Feature({ icon, text }: { icon: React.ReactNode; text: string }) {
+function FeatureCard({ icon, title, desc }: { icon: React.ReactNode; title: string; desc: string }) {
   return (
-    <div className="flex items-center gap-3">
+    <div className="group p-3.5 rounded-xl border border-white/10 bg-white/[0.04] backdrop-blur-sm hover:bg-white/[0.08] hover:border-white/20 transition-all">
       <div
-        className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0"
+        className="w-8 h-8 rounded-lg flex items-center justify-center mb-2 group-hover:scale-110 transition-transform"
         style={{ background: "rgba(245,130,32,0.18)", color: SENAC_ORANGE }}
       >
         {icon}
       </div>
-      <span className="text-white/90">{text}</span>
+      <div className="font-semibold text-sm text-white">{title}</div>
+      <div className="text-xs text-white/60 mt-0.5">{desc}</div>
+    </div>
+  );
+}
+
+function Stat({ icon, value, label }: { icon: React.ReactNode; value: string; label: string }) {
+  return (
+    <div>
+      <div className="flex items-center gap-1.5 text-white/50 text-[10px] uppercase tracking-wider font-semibold mb-1">
+        {icon}
+        {label}
+      </div>
+      <div className="text-2xl font-bold" style={{ color: SENAC_ORANGE }}>
+        {value}
+      </div>
     </div>
   );
 }
@@ -191,18 +295,28 @@ function PasswordInput({ value, onChange }: { value: string; onChange: (v: strin
         required
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="pr-10 h-11"
+        className="pr-10 h-11 border-slate-300 focus-visible:ring-[#003a70]/30 focus-visible:border-[#003a70]"
+        placeholder="••••••••"
       />
       <button
         type="button"
         onClick={() => setShow((s) => !s)}
-        className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground p-1"
+        className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-[#003a70] p-1 rounded transition-colors"
         tabIndex={-1}
         aria-label={show ? "Ocultar senha" : "Mostrar senha"}
       >
         {show ? <EyeOff size={18} /> : <Eye size={18} />}
       </button>
     </div>
+  );
+}
+
+function FieldInput(props: React.InputHTMLAttributes<HTMLInputElement>) {
+  return (
+    <Input
+      {...props}
+      className={`h-11 border-slate-300 focus-visible:ring-[#003a70]/30 focus-visible:border-[#003a70] ${props.className ?? ""}`}
+    />
   );
 }
 
@@ -225,20 +339,41 @@ function LoginForm({ onSuccess }: { onSuccess: () => void }) {
       }}
     >
       <div className="space-y-1.5">
-        <Label>E-mail institucional</Label>
-        <Input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="h-11" placeholder="seu.nome@ma.senac.br" />
+        <Label className="text-xs font-semibold text-slate-700 uppercase tracking-wider">
+          E-mail institucional
+        </Label>
+        <FieldInput
+          type="email"
+          required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="seu.nome@ma.senac.br"
+        />
       </div>
       <div className="space-y-1.5">
-        <Label>Senha</Label>
+        <div className="flex items-center justify-between">
+          <Label className="text-xs font-semibold text-slate-700 uppercase tracking-wider">
+            Senha
+          </Label>
+          <button
+            type="button"
+            className="text-xs text-[#003a70] hover:underline font-medium"
+            onClick={() => toast.info("Contate o administrador de TI para recuperação de senha.")}
+          >
+            Esqueceu?
+          </button>
+        </div>
         <PasswordInput value={password} onChange={setPassword} />
       </div>
       <Button
         type="submit"
         disabled={loading}
-        className="w-full h-11 text-white font-medium shadow-md transition-all"
-        style={{ background: `linear-gradient(135deg, ${SENAC_BLUE}, ${SENAC_BLUE_DARK})` }}
+        className="w-full h-11 text-white font-semibold shadow-lg hover:shadow-xl transition-all hover:-translate-y-0.5"
+        style={{
+          background: `linear-gradient(135deg, ${SENAC_BLUE} 0%, ${SENAC_BLUE_LIGHT} 100%)`,
+        }}
       >
-        {loading ? "Entrando..." : "Entrar"}
+        {loading ? "Entrando..." : "Entrar no SmartDesk"}
       </Button>
     </form>
   );
@@ -273,38 +408,57 @@ function SignupForm({ onSuccess }: { onSuccess: () => void }) {
       }}
     >
       <div className="space-y-1.5">
-        <Label>Nome completo</Label>
-        <Input required value={nome} onChange={(e) => setNome(e.target.value)} className="h-11" />
+        <Label className="text-xs font-semibold text-slate-700 uppercase tracking-wider">
+          Nome completo
+        </Label>
+        <FieldInput required value={nome} onChange={(e) => setNome(e.target.value)} placeholder="Maria Silva" />
       </div>
       <div className="space-y-1.5">
-        <Label>E-mail institucional</Label>
-        <Input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="h-11" />
+        <Label className="text-xs font-semibold text-slate-700 uppercase tracking-wider">
+          E-mail institucional
+        </Label>
+        <FieldInput
+          type="email"
+          required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="seu.nome@ma.senac.br"
+        />
       </div>
       <div className="grid grid-cols-2 gap-3">
         <div className="space-y-1.5">
-          <Label>Matrícula/CPF</Label>
-          <Input value={matricula} onChange={(e) => setMatricula(e.target.value)} className="h-11" />
+          <Label className="text-xs font-semibold text-slate-700 uppercase tracking-wider">
+            Matrícula/CPF
+          </Label>
+          <FieldInput value={matricula} onChange={(e) => setMatricula(e.target.value)} placeholder="000000" />
         </div>
         <div className="space-y-1.5">
-          <Label>Setor</Label>
-          <Input value={setor} onChange={(e) => setSetor(e.target.value)} className="h-11" />
+          <Label className="text-xs font-semibold text-slate-700 uppercase tracking-wider">
+            Setor
+          </Label>
+          <FieldInput value={setor} onChange={(e) => setSetor(e.target.value)} placeholder="TI / RH / ..." />
         </div>
       </div>
       <div className="space-y-1.5">
-        <Label>Senha</Label>
+        <Label className="text-xs font-semibold text-slate-700 uppercase tracking-wider">Senha</Label>
         <PasswordInput value={password} onChange={setPassword} />
       </div>
       <Button
         type="submit"
         disabled={loading}
-        className="w-full h-11 text-white font-medium shadow-md transition-all"
-        style={{ background: `linear-gradient(135deg, ${SENAC_ORANGE}, ${SENAC_ORANGE_DARK})` }}
+        className="w-full h-11 text-white font-semibold shadow-lg hover:shadow-xl transition-all hover:-translate-y-0.5"
+        style={{
+          background: `linear-gradient(135deg, ${SENAC_ORANGE} 0%, ${SENAC_ORANGE_DARK} 100%)`,
+        }}
       >
-        {loading ? "Criando..." : "Criar conta"}
+        {loading ? "Criando conta..." : "Criar minha conta"}
       </Button>
-      <p className="text-xs text-muted-foreground bg-amber-50 border border-amber-200 rounded-md p-2">
-        💡 O primeiro cadastro do sistema vira <strong>administrador</strong> automaticamente.
-      </p>
+      <div className="flex items-start gap-2 text-xs text-amber-900 bg-amber-50 border border-amber-200 rounded-lg p-3">
+        <Sparkles size={14} className="shrink-0 mt-0.5 text-amber-600" />
+        <span>
+          O <strong>primeiro cadastro</strong> do sistema vira <strong>administrador</strong> automaticamente.
+        </span>
+      </div>
     </form>
   );
 }
