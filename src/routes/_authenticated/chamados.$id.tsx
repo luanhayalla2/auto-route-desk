@@ -72,8 +72,9 @@ function ChamadoDetalhePage() {
   const isStaff = roles.some((r) => ["admin", "gestor", "tecnico_n1", "tecnico_n2", "tecnico_n3"].includes(r));
   const status = ticket.status;
 
-  async function atualizarStatus(novoStatus: string, msg: string, extra: Record<string, any> = {}) {
+  async function atualizarStatus(novoStatus: any, msg: string, extra: Record<string, any> = {}) {
     const { error } = await supabase.from("tickets").update({ status: novoStatus, ...extra }).eq("id", id);
+
     if (error) return toast.error("Falha", { description: error.message });
     toast.success(msg);
     carregar();
