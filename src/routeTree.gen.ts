@@ -16,6 +16,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedPortalRouteImport } from './routes/_authenticated/portal'
 import { Route as AuthenticatedFilaRouteImport } from './routes/_authenticated/fila'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedChamadosIndexRouteImport } from './routes/_authenticated/chamados.index'
 import { Route as AuthenticatedChamadosNovoRouteImport } from './routes/_authenticated/chamados.novo'
 import { Route as AuthenticatedChamadosIdRouteImport } from './routes/_authenticated/chamados.$id'
@@ -54,6 +55,11 @@ const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedChamadosIndexRoute =
   AuthenticatedChamadosIndexRouteImport.update({
     id: '/chamados/',
@@ -76,6 +82,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/admin': typeof AuthenticatedAdminRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/fila': typeof AuthenticatedFilaRoute
   '/portal': typeof AuthenticatedPortalRoute
@@ -87,6 +94,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/admin': typeof AuthenticatedAdminRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/fila': typeof AuthenticatedFilaRoute
   '/portal': typeof AuthenticatedPortalRoute
@@ -100,6 +108,7 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/fila': typeof AuthenticatedFilaRoute
   '/_authenticated/portal': typeof AuthenticatedPortalRoute
@@ -113,6 +122,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/reset-password'
+    | '/admin'
     | '/dashboard'
     | '/fila'
     | '/portal'
@@ -124,6 +134,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/reset-password'
+    | '/admin'
     | '/dashboard'
     | '/fila'
     | '/portal'
@@ -136,6 +147,7 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/auth'
     | '/reset-password'
+    | '/_authenticated/admin'
     | '/_authenticated/dashboard'
     | '/_authenticated/fila'
     | '/_authenticated/portal'
@@ -202,6 +214,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/chamados/': {
       id: '/_authenticated/chamados/'
       path: '/chamados'
@@ -227,6 +246,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedFilaRoute: typeof AuthenticatedFilaRoute
   AuthenticatedPortalRoute: typeof AuthenticatedPortalRoute
@@ -236,6 +256,7 @@ interface AuthenticatedRouteRouteChildren {
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedFilaRoute: AuthenticatedFilaRoute,
   AuthenticatedPortalRoute: AuthenticatedPortalRoute,
